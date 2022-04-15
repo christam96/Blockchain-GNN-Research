@@ -5,6 +5,7 @@ A personal collection of research papers focused on the application of Graph Neu
 ## Outline
 1. [Resources](#resources)
 2. [Subgraphs](#subgraphs)
+3. [Reading List](#reading-list)
 
 ## Resources <a name="resources"></a>
 * [PyG](https://github.com/pyg-team/pytorch_geometric): PyTorch GNN library
@@ -21,4 +22,7 @@ Keywords: Blockchain · Identity Inference · Graph Classification · Graph Neur
 
 arXiv: https://arxiv.org/abs/2104.06559
 ```
+
+## Reading List <a name="reading-list"></a>
+* [Phishing Detection on Ethereum via Learning Representation](https://link.springer.com/chapter/10.1007/978-981-15-9213-3_14)
 
