@@ -25,4 +25,4 @@ arXiv: https://arxiv.org/abs/2104.06559
 
 ## Reading List <a name="reading-list"></a>
 * [Phishing Detection on Ethereum via Learning Representation](https://link.springer.com/chapter/10.1007/978-981-15-9213-3_14)
-
+* [graph2vec: Learning Distributed Representations of Graphs](https://arxiv.org/abs/1707.05005)
