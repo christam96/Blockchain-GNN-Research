@@ -17,7 +17,7 @@ G = nx.from_pandas_edgelist(df, source='From', target='To', edge_attr='Value', c
 # For each `source` open related csv in 2nd-order directory create new graph
 # Then combine network graphs using nx.compose()
 # print('Second order nodes of {}:'.format(f1) + '\n')
-second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/*.csv'.format(current_node))
+second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/0x00b4bf84e603e491cbee8c387d8d0a017953e12b.csv'.format(current_node))
 for f2 in second_order_files:
     df2 = pd.read_csv(f2)
     Graphtype = nx.DiGraph()
