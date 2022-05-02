@@ -23,8 +23,7 @@ print('G: ', G)
 # G'.nodes = G_prev.nodes + G_next.nodes - intersection(G_prev, G_next).nodes
 # G'.edges = G_prev.edges + len(G_next.nodes)
 count=0
-count_incorrect = 0
-highest_diff = 0
+num_incorrect = 0
 second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/*.csv'.format(root))
 # second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/0x329a2da2753351f9b5d7a7c9ac51664278b3b817.csv'.format(root))
 # second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/0x72a0658eae0a3cbdf92364faca526fd8bbb99ca1.csv'.format(root))
@@ -39,23 +38,22 @@ for f2 in second_order_files:
     second_order_nodes = df2[df2['To'] == current_neighbour]
 
     # Check intersection of nodes with G excluding the neighbour node itself
-    ### BUG: Checking intersectino with `df` when should really be checking for intersection on previous graph
-    intersect_df = pd.merge(df['From'], df2['From'], how='inner') # <-- BUG
-    intersect_df.drop(intersect_df[intersect_df['From']==current_neighbour].index, inplace=True)
-    exp_G_prime_nodes = len(G.nodes) + len(pd.unique(second_order_nodes['From'])) - len(pd.unique(intersect_df['From']))
-    exp_G_prime_edges = len(G.edges) + len(pd.unique(second_order_nodes['From']))
+    existing_nodes = set(G.nodes)
+    new_nodes = set(second_order_nodes['From'])
+    intersecting_nodes = set(existing_nodes.intersection(new_nodes))
+    exp_G_prime_nodes = len(G.nodes) + len(new_nodes) - len(intersecting_nodes)
+    exp_G_prime_edges = len(G.edges) + len(new_nodes)
 
     # Construct graph
     try:
         Graphtype = nx.DiGraph()
         G_next = nx.from_pandas_edgelist(second_order_nodes, source='From', target='To', edge_attr='Value', create_using=Graphtype)
         G_prime = nx.compose(G, G_next)
-        print(len(G_prime.nodes))
         assert(len(G_prime.nodes) == exp_G_prime_nodes and len(G_prime.edges) == exp_G_prime_edges)
         print('  ✅ SUCCESS → G\': {}'.format(G_prime))
         G = G_prime
     except Exception as e:
-        count_incorrect += 1
+        num_incorrect += 1
         print('  ❌ GRAPH MISMATCH')
         print('{} nodes and {} edges (expected)'.format(exp_G_prime_nodes, exp_G_prime_edges))
         print('{} nodes and {} edges (got)'.format(len(G_prime.nodes), len(G_prime.edges)))
@@ -63,5 +61,8 @@ for f2 in second_order_files:
         if node_diff > highest_diff: 
             highest_diff = node_diff
 
-    print('# incorrect: {}'.format(count_incorrect))
-    print('Highest node diff: {}'.format(highest_diff))
+print('------------------------------------------')
+num_correct = count-num_incorrect
+print('Graph Expansion Results: {}/{} ({}%) correct'.format(num_correct, count, num_correct/count*100))
+print(G)
+print('------------------------------------------')
