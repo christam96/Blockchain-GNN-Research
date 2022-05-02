@@ -4,6 +4,7 @@ Attempt to reproduce the experiment design of Phishing Detection on Ethereum via
 
 # Todo
 
-* [ ] Create original graph from tx data
+* [X] Encode tx data into graph structure 
+    * Run `create_graph.py`
 * [ ] Convert original graph to line graph
 * [ ] Embed graph into lower dimensions
