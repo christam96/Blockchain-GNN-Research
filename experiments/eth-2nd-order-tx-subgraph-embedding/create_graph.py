@@ -59,7 +59,6 @@ for f2 in second_order_files:
         df2_outgoing.remove(current_neighbour)
     # Calculate expectation
     exp_G_prime_nodes = len(G.nodes) + len(new_nodes) - len(intersecting_nodes)
-    # exp_G_prime_edges = len(G.edges) + len(new_nodes)
     exp_G_prime_edges = len(G.edges) + len(df2_incoming) + len(df2_outgoing)
 
     # Construct graph
