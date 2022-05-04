@@ -15,6 +15,9 @@ print('Root: ', root)
 print('G: ', G)
 
 ## Construct 2nd-order directed graph
+# Filter through addresses:
+#   * Filter valid neighbours using df.groupby(['COLUMN']).size() 
+#   * link: https://www.geeksforgeeks.org/pandas-groupby-count-occurrences-in-column/
 # Verify graph expansion:
 # G'.nodes = G_prev.nodes + G_next.nodes - intersection(G_prev, G_next).nodes
 # G'.edges = G_prev.edges + len(G_next.nodes)
