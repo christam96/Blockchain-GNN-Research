@@ -3,8 +3,6 @@ import networkx as nx
 import pandas as pd
 
 DATA_BASE_PATH = "/Users/chris/Documents/Research/data/2nd-order transaction network of phishing nodes/"
-# first_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing first-order nodes/*.csv')
-# for f1 in first_order_files:
 
 # Construct 1st-order directed graph using only one graph
 f1 = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing first-order nodes/0x0000000000000000000000000000000000000000.csv')[0]
@@ -16,17 +14,12 @@ print('Root: ', root)
 print('G: ', G)
 
 ## Construct 2nd-order directed graph
-# For each neighbour, open related csv in 2nd-order directory and create new graph
-# Then combine network graphs using nx.compose()
-#
-## Verify graph expansion:
+# Verify graph expansion:
 # G'.nodes = G_prev.nodes + G_next.nodes - intersection(G_prev, G_next).nodes
 # G'.edges = G_prev.edges + len(G_next.nodes)
 count=0
 num_incorrect = 0
 second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/*.csv'.format(root))
-# second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/0x329a2da2753351f9b5d7a7c9ac51664278b3b817.csv'.format(root))
-# second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/0x72a0658eae0a3cbdf92364faca526fd8bbb99ca1.csv'.format(root))
 for f2 in second_order_files:
     count += 1
     # Current neighbour of root
