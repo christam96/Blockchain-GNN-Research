@@ -6,6 +6,7 @@ DATA_BASE_PATH = "/Users/chris/Documents/Research/data/2nd-order transaction net
 
 # Construct 1st-order directed graph using only one graph
 f1 = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing first-order nodes/0x0000000000000000000000000000000000000000.csv')[0]
+# f1 = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing first-order nodes/0x00a2df284ba5f6428a39dff082ba7ff281852e06.csv')[0]
 root = f1.split('/')[-1].split('.')[0]
 df = pd.read_csv(f1)
 Graphtype = nx.DiGraph()
