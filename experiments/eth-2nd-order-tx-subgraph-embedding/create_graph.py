@@ -73,11 +73,16 @@ for f2 in second_order_files:
         print('{} nodes and {} edges (expected)'.format(exp_G_prime_nodes, exp_G_prime_edges))
         print('{} nodes and {} edges (got)'.format(len(G_prime.nodes), len(G_prime.edges)))
         node_diff = abs(exp_G_prime_nodes - len(G_prime.nodes))
-        if node_diff > highest_diff: 
-            highest_diff = node_diff
+        edge_diff = abs(exp_G_prime_edges - len(G_prime.edges))
+        if node_diff > highest_node_diff:
+            highest_node_diff = node_diff
+        if edge_diff > highest_edge_diff:
+            highest_edge_diff = edge_diff
 
 print('------------------------------------------')
 num_correct = count-num_incorrect
 print('Graph Expansion Results: {}/{} ({}%) correct'.format(num_correct, count, num_correct/count*100))
 print(G)
+print('Highest node diff: ', highest_node_diff)
+print('Highest edge diff: ', highest_edge_diff)
 print('------------------------------------------')
