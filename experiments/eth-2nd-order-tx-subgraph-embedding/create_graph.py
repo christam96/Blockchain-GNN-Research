@@ -20,7 +20,7 @@ print('G: ', G)
 #   * link: https://www.geeksforgeeks.org/pandas-groupby-count-occurrences-in-column/
 # Verify graph expansion:
 # G'.nodes = G_prev.nodes + G_next.nodes - intersection(G_prev, G_next).nodes
-# G'.edges = G_prev.edges + len(G_next.nodes)
+# G'.edges = G_prev.edges + G_next.edges - intersection(G_prev, G_next).edges
 count=0
 num_incorrect = 0
 highest_node_diff = 0
@@ -38,37 +38,21 @@ for f2 in second_order_files:
 
     # Dataframe of neighbour transactions 
     df2 = pd.read_csv(f2)
-    # Remove redundant edges between (G, G_next)
-    subset = df2[['From', 'To']]
-    tuples = set([tuple(x) for x in subset.to_numpy()])
-    print(len(tuples))
-    print(len(G.edges))
-    intersecting_edges = set(set(G.edges).intersection(tuples))
-    new_edges = len(tuples) - len(intersecting_edges)
-    print('new edges: ', new_edges)
-    # Remove transactions between root and neighbour already in graph
-    df2.drop(df2[df2['From']==root].index, inplace=True)
-    df2.drop(df2[df2['To']==root].index, inplace=True)
+
+    # Verify edges: Remove redundant edges between (G_prev, G_next)
+    tx_subset = df2[['From', 'To']]
+    tx_tuples = set([tuple(x) for x in tx_subset.to_numpy()])
+    intersecting_edges = set(set(G.edges).intersection(tx_tuples))
+    new_edges = len(tx_tuples) - len(intersecting_edges)
+    exp_G_prime_edges = len(G.edges) + len(tx_tuples) - len(intersecting_edges)
+
+    # Verify nodes: Remove redundant nodes between (G_prev, G_next)
     df2_incoming = set(df2['From'])
     df2_outgoing = set(df2['To'])
-    # print('df2_from: ', df2_from)
-    # print('df2_to: ', df2_to)
-
-    # Nodes: Check intersection of nodes with G excluding the neighbour node itself
     existing_nodes = set(G.nodes)
     new_nodes = set(list(df2_incoming) + list(df2_outgoing))
-    if current_neighbour in new_nodes:
-        new_nodes.remove(current_neighbour)
     intersecting_nodes = set(existing_nodes.intersection(new_nodes))
-    # Edges: Make sure current neighbour not counted twice
-    if current_neighbour in df2_incoming:
-        df2_incoming.remove(current_neighbour)
-    if current_neighbour in df2_outgoing:
-        df2_outgoing.remove(current_neighbour)
-    # Calculate expectation
     exp_G_prime_nodes = len(G.nodes) + len(new_nodes) - len(intersecting_nodes)
-    exp_G_prime_edges = len(G.edges) + len(df2_incoming) + len(df2_outgoing)
-    exp_G_prime_edges = len(G.edges) + len(tuples) - len(intersecting_edges)
 
     # Construct graph
     try:
