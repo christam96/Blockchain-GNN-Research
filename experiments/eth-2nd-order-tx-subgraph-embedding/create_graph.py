@@ -112,3 +112,8 @@ def create_graph(dataset, root):
 create_graph('Non-phishing', '0x00a2df284ba5f6428a39dff082ba7ff281852e06')
 # create_graph('Non-phishing', '0x0a17c49ca376b47b64c743b3cd6a0b795599141d')
 # create_graph('Non-phishing', '0x0a34b447d8a19693ffb41b083f86b09dd90109d8')
+
+create_graph('Phishing', '0x0a0ba956038d4a66002d612648332b9c4ab7646c')
+create_graph('Phishing', '0x0a3afd85b3b4dbab37906030287de6fc70a83b92')
+create_graph('Phishing', '0x0a4a2413d7c604647c7788fd3564b3c54fe06763')
+create_graph('Phishing', '0x0a9f58ee19a7131ed031ea66a032c05c7efe965a')
