@@ -83,6 +83,7 @@ def create_graph(dataset, root):
             print('  ✅ SUCCESS → G\': {}'.format(G_prime))
             c_success += 1
             G = G_prime
+            return G
         except Exception as e:
             num_incorrect += 1
             print('  ❌ GRAPH MISMATCH')
@@ -94,6 +95,7 @@ def create_graph(dataset, root):
                 highest_node_diff = node_diff
             if edge_diff > highest_edge_diff:
                 highest_edge_diff = edge_diff
+            return 0
 
     print('------------------------------------------')
     num_correct = count-num_incorrect
