@@ -11,6 +11,7 @@ root = f1.split('/')[-1].split('.')[0]
 df = pd.read_csv(f1)
 Graphtype = nx.DiGraph()
 G = nx.from_pandas_edgelist(df, source='From', target='To', edge_attr='Value', create_using=Graphtype)
+G_start = G
 print('Root: ', root)
 print('G: ', G)
 
@@ -25,6 +26,8 @@ count=0
 num_incorrect = 0
 highest_node_diff = 0
 highest_edge_diff = 0
+c_success = 0
+c_skip = 0
 second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/*.csv'.format(root))
 # second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/0xc3f62567e93661c45b80a0aca87e065802265512.csv'.format(root)) 
 # second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/0xc0054cca381f44664bd707ac7fa583fca899e37a.csv'.format(root)) 
@@ -50,6 +53,10 @@ for f2 in second_order_files:
 
     bool_filter = count_txs.apply(lambda x : x >= 30 and x <= 300)
     valid_addresses = pd.DataFrame(bool_filter[bool_filter==True])
+    if valid_addresses.empty == True: 
+        print('  ⏩ SKIPPING: Empty DataFrame')
+        c_skip += 1
+        continue
     valid_addresses.reset_index(inplace=True)
     valid_addresses = valid_addresses['index'].tolist()
     print(valid_addresses)
@@ -78,6 +85,7 @@ for f2 in second_order_files:
         G_prime = nx.compose(G, G_next)
         assert(len(G_prime.nodes) == exp_G_prime_nodes and len(G_prime.edges) == exp_G_prime_edges)
         print('  ✅ SUCCESS → G\': {}'.format(G_prime))
+        c_success += 1
         G = G_prime
     except Exception as e:
         num_incorrect += 1
@@ -94,7 +102,9 @@ for f2 in second_order_files:
 print('------------------------------------------')
 num_correct = count-num_incorrect
 print('Graph Expansion Results: {}/{} ({}%) correct'.format(num_correct, count, num_correct/count*100))
-print(G)
+print('Succeeded: {} | Skipped: {} | ({}/{})'.format(c_success, c_skip, c_success+c_skip, count))
+print('Initial graph: \t{}'.format(G_start))
+print('Final graph: \t{}'.format(G))
 print('Highest node diff: ', highest_node_diff)
 print('Highest edge diff: ', highest_edge_diff)
 print('------------------------------------------')
