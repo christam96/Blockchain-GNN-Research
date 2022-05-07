@@ -102,4 +102,7 @@ def create_graph(dataset, root):
     print('------------------------------------------')
 
 
-create_graph('0x0c8f2b984d13b7c3d6e7fca2e803f356481d1376', 'Non-phishing')
+# create_graph('Non-phishing', '0x0000000000000000000000000000000000000000')
+create_graph('Non-phishing', '0x00a2df284ba5f6428a39dff082ba7ff281852e06')
+# create_graph('Non-phishing', '0x0a17c49ca376b47b64c743b3cd6a0b795599141d')
+# create_graph('Non-phishing', '0x0a34b447d8a19693ffb41b083f86b09dd90109d8')
