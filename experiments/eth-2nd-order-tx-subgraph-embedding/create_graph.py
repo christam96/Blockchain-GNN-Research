@@ -49,7 +49,7 @@ for f2 in second_order_files:
     count_to = df2.groupby('To').size()
     count_txs = count_from.add(count_to, fill_value=0).drop(current_neighbour)
     # Only keep neighbours with more than 10 and less than 300 transactions
-    bool_filter = count_txs.apply(lambda x : x >= 30 and x <= 300)
+    bool_filter = count_txs.apply(lambda x : x >= 10 and x <= 300)
     valid_addresses = pd.DataFrame(bool_filter[bool_filter==True])
     if valid_addresses.empty == True: 
         print('  ⏩ SKIPPING: Empty DataFrame')
