@@ -33,6 +33,7 @@ second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing secon
 # second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/0xc0054cca381f44664bd707ac7fa583fca899e37a.csv'.format(root)) 
 # second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/0x72a0658eae0a3cbdf92364faca526fd8bbb99ca1.csv'.format(root)) 
 # second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/0x69b612b2088a75054de71d7ec10dc50d3be94f55.csv'.format(root)) 
+# second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/0x9476c7e0bc0d2ea220ae28ff4e586a9c911945ca.csv'.format(root)) 
 for f2 in second_order_files:
     count += 1
     # Current neighbour of root
