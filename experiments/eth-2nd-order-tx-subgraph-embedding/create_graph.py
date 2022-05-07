@@ -29,6 +29,10 @@ def create_graph(dataset, root):
     c_success = 0
     c_skip = 0
     second_order_files = glob.glob(DATA_BASE_PATH + '{}/{} second-order nodes/{}/*.csv'.format(dataset, dataset, root))
+    # Some 2nd-order directories may be empty (e.g., phishing accounts)
+    if not second_order_files:
+        print('EMPTY DIRECTORY')
+        return 0
     for f2 in second_order_files:
         count += 1
         # Current neighbour of root
