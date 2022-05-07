@@ -4,8 +4,7 @@ import pandas as pd
 
 DATA_BASE_PATH = "/Users/chris/Documents/Research/data/2nd-order transaction network of phishing nodes/"
 
-def create_graph(root, dataset):
-    print(dataset)
+def create_graph(dataset, root):
     # Construct 1st-order directed graph using only one graph
     f1 = glob.glob(DATA_BASE_PATH + '{}/{} first-order nodes/{}.csv'.format(dataset, dataset, root))[0]
     root = f1.split('/')[-1].split('.')[0]
