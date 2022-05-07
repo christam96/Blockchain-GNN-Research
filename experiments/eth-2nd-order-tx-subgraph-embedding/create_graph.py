@@ -4,17 +4,20 @@ import pandas as pd
 
 DATA_BASE_PATH = "/Users/chris/Documents/Research/data/2nd-order transaction network of phishing nodes/"
 
-# Construct 1st-order directed graph using only one graph
-# f1 = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing first-order nodes/0x0000000000000000000000000000000000000000.csv')[0]
-# f1 = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing first-order nodes/0x00a2df284ba5f6428a39dff082ba7ff281852e06.csv')[0]
-f1 = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing first-order nodes/0x0c8f2b984d13b7c3d6e7fca2e803f356481d1376.csv')[0]
-root = f1.split('/')[-1].split('.')[0]
-df = pd.read_csv(f1)
-Graphtype = nx.DiGraph()
-G = nx.from_pandas_edgelist(df, source='From', target='To', edge_attr='Value', create_using=Graphtype)
-G_start = G
-print('Root: ', root)
-print('G: ', G)
+def create_graph(root, dataset):
+    print(dataset)
+    # Construct 1st-order directed graph using only one graph
+    # f1 = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing first-order nodes/0x0000000000000000000000000000000000000000.csv')[0]
+    # f1 = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing first-order nodes/0x00a2df284ba5f6428a39dff082ba7ff281852e06.csv')[0]
+    # f1 = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing first-order nodes/0x0c8f2b984d13b7c3d6e7fca2e803f356481d1376.csv')[0]
+    f1 = glob.glob(DATA_BASE_PATH + '{}/{} first-order nodes/{}.csv'.format(dataset, dataset, root))[0]
+    root = f1.split('/')[-1].split('.')[0]
+    df = pd.read_csv(f1)
+    Graphtype = nx.DiGraph()
+    G = nx.from_pandas_edgelist(df, source='From', target='To', edge_attr='Value', create_using=Graphtype)
+    G_start = G
+    print('Root: ', root)
+    print('G: ', G)
 
 ## Construct 2nd-order directed graph
 # Filter through addresses:
