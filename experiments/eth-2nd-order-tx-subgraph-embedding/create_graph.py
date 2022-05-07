@@ -52,7 +52,7 @@ def create_graph(root, dataset):
             c_skip += 1
             continue
         valid_addresses.reset_index(inplace=True)
-        valid_addresses = valid_addresses['index'].tolist()
+        valid_addresses = valid_addresses.iloc[:,0].tolist()
         # Remove all other neighbours from subgraph 
         df2 = df2[(df2['From'].isin(valid_addresses)) | (df2['To'].isin(valid_addresses))]
 
