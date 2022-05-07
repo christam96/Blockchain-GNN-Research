@@ -7,9 +7,6 @@ DATA_BASE_PATH = "/Users/chris/Documents/Research/data/2nd-order transaction net
 def create_graph(root, dataset):
     print(dataset)
     # Construct 1st-order directed graph using only one graph
-    # f1 = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing first-order nodes/0x0000000000000000000000000000000000000000.csv')[0]
-    # f1 = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing first-order nodes/0x00a2df284ba5f6428a39dff082ba7ff281852e06.csv')[0]
-    # f1 = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing first-order nodes/0x0c8f2b984d13b7c3d6e7fca2e803f356481d1376.csv')[0]
     f1 = glob.glob(DATA_BASE_PATH + '{}/{} first-order nodes/{}.csv'.format(dataset, dataset, root))[0]
     root = f1.split('/')[-1].split('.')[0]
     df = pd.read_csv(f1)
@@ -32,12 +29,7 @@ def create_graph(root, dataset):
     highest_edge_diff = 0
     c_success = 0
     c_skip = 0
-    second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/*.csv'.format(root))
-    # second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/0xc3f62567e93661c45b80a0aca87e065802265512.csv'.format(root)) 
-    # second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/0xc0054cca381f44664bd707ac7fa583fca899e37a.csv'.format(root)) 
-    # second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/0x72a0658eae0a3cbdf92364faca526fd8bbb99ca1.csv'.format(root)) 
-    # second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/0x69b612b2088a75054de71d7ec10dc50d3be94f55.csv'.format(root)) 
-    # second_order_files = glob.glob(DATA_BASE_PATH + 'Non-phishing/Non-phishing second-order nodes/{}/0x9476c7e0bc0d2ea220ae28ff4e586a9c911945ca.csv'.format(root)) 
+    second_order_files = glob.glob(DATA_BASE_PATH + '{}/{} second-order nodes/{}/*.csv'.format(dataset, dataset, root))
     for f2 in second_order_files:
         count += 1
         # Current neighbour of root
