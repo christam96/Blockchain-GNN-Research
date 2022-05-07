@@ -44,14 +44,11 @@ for f2 in second_order_files:
     df2 = pd.read_csv(f2)
 
     ## Filter through valid addresses
-    # * Count number of transactions with each neighbour
-    # * Only keep neighbours with more than 10 and less than 300 transactions
-    # * Remove all other neighbours from subgraph 
+    # Count number of transactions with each neighbour
     count_from = df2.groupby('From').size()
     count_to = df2.groupby('To').size()
     count_txs = count_from.add(count_to, fill_value=0).drop(current_neighbour)
-    print(count_txs.sort_values())
-
+    # Only keep neighbours with more than 10 and less than 300 transactions
     bool_filter = count_txs.apply(lambda x : x >= 30 and x <= 300)
     valid_addresses = pd.DataFrame(bool_filter[bool_filter==True])
     if valid_addresses.empty == True: 
@@ -61,8 +58,8 @@ for f2 in second_order_files:
     valid_addresses.reset_index(inplace=True)
     valid_addresses = valid_addresses['index'].tolist()
     print(valid_addresses)
-    temp_df = df2[(df2['From'].isin(valid_addresses)) | (df2['To'].isin(valid_addresses))]
-    print(temp_df)
+    # Remove all other neighbours from subgraph 
+    df2 = df2[(df2['From'].isin(valid_addresses)) | (df2['To'].isin(valid_addresses))]
 
     # Verify edges: Remove redundant edges between (G_prev, G_next)
     tx_subset = df2[['From', 'To']]
