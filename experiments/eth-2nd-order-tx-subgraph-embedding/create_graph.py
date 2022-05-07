@@ -45,8 +45,16 @@ for f2 in second_order_files:
     # * Remove all other neighbours from subgraph 
     count_from = df2.groupby('From').size()
     count_to = df2.groupby('To').size()
-    count_txs = count_from.add(count_to, fill_value=0)
-    print(count_txs)
+    count_txs = count_from.add(count_to, fill_value=0).drop(current_neighbour)
+    print(count_txs.sort_values())
+
+    bool_filter = count_txs.apply(lambda x : x >= 30 and x <= 300)
+    valid_addresses = pd.DataFrame(bool_filter[bool_filter==True])
+    valid_addresses.reset_index(inplace=True)
+    valid_addresses = valid_addresses['index'].tolist()
+    print(valid_addresses)
+    temp_df = df2[(df2['From'].isin(valid_addresses)) | (df2['To'].isin(valid_addresses))]
+    print(temp_df)
 
     # Verify edges: Remove redundant edges between (G_prev, G_next)
     tx_subset = df2[['From', 'To']]
