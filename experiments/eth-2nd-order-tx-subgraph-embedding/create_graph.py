@@ -1,6 +1,7 @@
 import glob
 import networkx as nx
 import pandas as pd
+from karateclub import Graph2Vec
 
 DATA_BASE_PATH = "/Users/chris/Documents/Research/data/2nd-order transaction network of phishing nodes/"
 
@@ -51,7 +52,7 @@ def create_graph(dataset, root):
         bool_filter = count_txs.apply(lambda x : x >= 10 and x <= 300)
         valid_addresses = pd.DataFrame(bool_filter[bool_filter==True])
         if valid_addresses.empty == True: 
-            print('  ⏩ SKIPPING: Empty DataFrame')
+            # print('  ⏩ SKIPPING: Empty DataFrame')
             c_skip += 1
             continue
         valid_addresses.reset_index(inplace=True)
@@ -80,7 +81,7 @@ def create_graph(dataset, root):
             G_next = nx.from_pandas_edgelist(df2, source='From', target='To', edge_attr='Value', create_using=Graphtype)
             G_prime = nx.compose(G, G_next)
             assert(len(G_prime.nodes) == exp_G_prime_nodes and len(G_prime.edges) == exp_G_prime_edges)
-            print('  ✅ SUCCESS → G\': {}'.format(G_prime))
+            # print('  ✅ SUCCESS → G\': {}'.format(G_prime))
             c_success += 1
             G = G_prime
         except Exception as e:
@@ -108,11 +109,43 @@ def create_graph(dataset, root):
 
 
 # create_graph('Non-phishing', '0x0000000000000000000000000000000000000000')
-create_graph('Non-phishing', '0x00a2df284ba5f6428a39dff082ba7ff281852e06')
+# create_graph('Non-phishing', '0x00a2df284ba5f6428a39dff082ba7ff281852e06')
 # create_graph('Non-phishing', '0x0a17c49ca376b47b64c743b3cd6a0b795599141d')
 # create_graph('Non-phishing', '0x0a34b447d8a19693ffb41b083f86b09dd90109d8')
 
-create_graph('Phishing', '0x0a0ba956038d4a66002d612648332b9c4ab7646c')
-create_graph('Phishing', '0x0a3afd85b3b4dbab37906030287de6fc70a83b92')
-create_graph('Phishing', '0x0a4a2413d7c604647c7788fd3564b3c54fe06763')
-create_graph('Phishing', '0x0a9f58ee19a7131ed031ea66a032c05c7efe965a')
+# create_graph('Phishing', '0x0a0ba956038d4a66002d612648332b9c4ab7646c')
+# create_graph('Phishing', '0x0a3afd85b3b4dbab37906030287de6fc70a83b92')
+# create_graph('Phishing', '0x0a4a2413d7c604647c7788fd3564b3c54fe06763')
+# create_graph('Phishing', '0x0a9f58ee19a7131ed031ea66a032c05c7efe965a')
+
+# ## 
+# # Run through 1st-order nodes, create list of graphs
+# first_order_files = glob.glob(DATA_BASE_PATH + 'Phishing/Phishing first-order nodes/*')
+# graph_l = []
+# u_bound = 10
+# c = 0
+# for f in first_order_files:
+#     if c > u_bound: continue
+#     root = f.split('/')[-1].split('.')[0]
+#     graph_l.append(create_graph('Phishing', root))
+#     c +=1
+
+# print(len(graph_l))
+
+graph_l = []
+
+G_1 = create_graph('Non-phishing', '0x0000000000000000000000000000000000000000')
+graph_num = nx.convert_node_labels_to_integers(G_1, first_label=0, ordering='default')
+# undi_G = G_1.to_undirected()
+graph_l.append(graph_num)
+
+G_2 = create_graph('Non-phishing', '0x0a34b447d8a19693ffb41b083f86b09dd90109d8')
+graph_num = nx.convert_node_labels_to_integers(G_2, first_label=0, ordering='default')
+# undi_G = G_2.to_undirected()
+graph_l.append(graph_num)
+
+# print(type(graph_l[0]))
+model = Graph2Vec()
+print(model)
+fit = model.fit(graph_l)
+print(model.get_embedding)
