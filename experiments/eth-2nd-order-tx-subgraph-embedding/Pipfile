@@ -8,6 +8,7 @@ networkx = "*"
 numpy = "*"
 matplotlib = "*"
 pandas = "*"
+karateclub = "*"
 
 [dev-packages]
 
