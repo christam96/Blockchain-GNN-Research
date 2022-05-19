@@ -118,34 +118,20 @@ def create_graph(dataset, root):
 # create_graph('Phishing', '0x0a4a2413d7c604647c7788fd3564b3c54fe06763')
 # create_graph('Phishing', '0x0a9f58ee19a7131ed031ea66a032c05c7efe965a')
 
-# ## 
-# # Run through 1st-order nodes, create list of graphs
-# first_order_files = glob.glob(DATA_BASE_PATH + 'Phishing/Phishing first-order nodes/*')
-# graph_l = []
-# u_bound = 10
-# c = 0
-# for f in first_order_files:
-#     if c > u_bound: continue
-#     root = f.split('/')[-1].split('.')[0]
-#     graph_l.append(create_graph('Phishing', root))
-#     c +=1
-
-# print(len(graph_l))
-
+## 
+# Run through 1st-order nodes, create list of graphs
+first_order_files = glob.glob(DATA_BASE_PATH + 'Non-Phishing/Non-Phishing first-order nodes/*')
 graph_l = []
+u_bound = 10
+c = 0
+for f in first_order_files:
+    if c > u_bound: continue
+    root = f.split('/')[-1].split('.')[0]
+    graph_l.append(nx.convert_node_labels_to_integers(create_graph('Non-Phishing', root), first_label=0, ordering='default'))
+    c +=1
 
-G_1 = create_graph('Non-phishing', '0x0000000000000000000000000000000000000000')
-graph_num = nx.convert_node_labels_to_integers(G_1, first_label=0, ordering='default')
-# undi_G = G_1.to_undirected()
-graph_l.append(graph_num)
+print(len(graph_l))
 
-G_2 = create_graph('Non-phishing', '0x0a34b447d8a19693ffb41b083f86b09dd90109d8')
-graph_num = nx.convert_node_labels_to_integers(G_2, first_label=0, ordering='default')
-# undi_G = G_2.to_undirected()
-graph_l.append(graph_num)
-
-# print(type(graph_l[0]))
 model = Graph2Vec()
-print(model)
 fit = model.fit(graph_l)
 print(model.get_embedding)
