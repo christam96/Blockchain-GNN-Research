@@ -33,7 +33,7 @@ def create_graph(dataset, root):
     # Some 2nd-order directories may be empty (e.g., phishing accounts)
     if not second_order_files:
         print('EMPTY DIRECTORY')
-        return 0
+        return nx.empty_graph()
     for f2 in second_order_files:
         count += 1
         # Current neighbour of root
@@ -118,20 +118,18 @@ def create_graph(dataset, root):
 # create_graph('Phishing', '0x0a4a2413d7c604647c7788fd3564b3c54fe06763')
 # create_graph('Phishing', '0x0a9f58ee19a7131ed031ea66a032c05c7efe965a')
 
-## 
-# Run through 1st-order nodes, create list of graphs
+# Create list of subgraphs
 first_order_files = glob.glob(DATA_BASE_PATH + 'Non-Phishing/Non-Phishing first-order nodes/*')
 graph_l = []
-u_bound = 10
-c = 0
 for f in first_order_files:
-    if c > u_bound: continue
     root = f.split('/')[-1].split('.')[0]
-    graph_l.append(nx.convert_node_labels_to_integers(create_graph('Non-Phishing', root), first_label=0, ordering='default'))
-    c +=1
+    G = create_graph('Non-Phishing', root)
+    graph_l.append(nx.convert_node_labels_to_integers(G, first_label=0, ordering='default'))
+    print('HEREEEE: ', type(G))
 
 print(len(graph_l))
 
 model = Graph2Vec()
 fit = model.fit(graph_l)
-print(model.get_embedding)
+embedding = model.get_embedding()
+print(embedding.shape)
