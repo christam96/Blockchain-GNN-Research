@@ -9,6 +9,7 @@ numpy = "*"
 matplotlib = "*"
 pandas = "*"
 karateclub = "*"
+tqdm = "*"
 
 [dev-packages]
 
