@@ -13,8 +13,8 @@ def create_graph(dataset, root):
     Graphtype = nx.DiGraph()
     G = nx.from_pandas_edgelist(df, source='From', target='To', edge_attr='Value', create_using=Graphtype)
     G_start = G
-    print('Root: ', root)
-    print('G: ', G)
+    # print('Root: ', root)
+    # print('G: ', G)
 
     ## Construct 2nd-order directed graph
     # Filter through addresses:
@@ -32,13 +32,13 @@ def create_graph(dataset, root):
     second_order_files = glob.glob(DATA_BASE_PATH + '{}/{} second-order nodes/{}/*.csv'.format(dataset, dataset, root))
     # Some 2nd-order directories may be empty (e.g., phishing accounts)
     if not second_order_files:
-        print('EMPTY DIRECTORY')
+        # print('EMPTY DIRECTORY')
         return nx.empty_graph()
     for f2 in second_order_files:
         count += 1
         # Current neighbour of root
         current_neighbour = f2.split('/')[-1].split('.')[0]
-        print('[#{} GRAPH EXPANSION] Adding neighbour: {}'.format(count, current_neighbour))
+        # print('[#{} GRAPH EXPANSION] Adding neighbour: {}'.format(count, current_neighbour))
 
         # Dataframe of neighbour transactions 
         df2 = pd.read_csv(f2)
@@ -96,15 +96,15 @@ def create_graph(dataset, root):
             if edge_diff > highest_edge_diff:
                 highest_edge_diff = edge_diff
 
-    print('------------------------------------------')
-    num_correct = count-num_incorrect
-    print('Graph Expansion Results: {}/{} ({}%) correct'.format(num_correct, count, num_correct/count*100))
-    print('Succeeded: {} | Skipped: {} | ({}/{})'.format(c_success, c_skip, c_success+c_skip, count))
-    print('Initial graph: \t{}'.format(G_start))
-    print('Final graph: \t{}'.format(G))
-    print('Highest node diff: ', highest_node_diff)
-    print('Highest edge diff: ', highest_edge_diff)
-    print('------------------------------------------')
+    # print('------------------------------------------')
+    # num_correct = count-num_incorrect
+    # print('Graph Expansion Results: {}/{} ({}%) correct'.format(num_correct, count, num_correct/count*100))
+    # print('Succeeded: {} | Skipped: {} | ({}/{})'.format(c_success, c_skip, c_success+c_skip, count))
+    # print('Initial graph: \t{}'.format(G_start))
+    # print('Final graph: \t{}'.format(G))
+    # print('Highest node diff: ', highest_node_diff)
+    # print('Highest edge diff: ', highest_edge_diff)
+    # print('------------------------------------------')
     return G
 
 
