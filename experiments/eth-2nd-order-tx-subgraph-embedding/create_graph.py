@@ -2,6 +2,8 @@ import glob
 import networkx as nx
 import pandas as pd
 from karateclub import Graph2Vec
+from tqdm import tqdm
+import pickle
 
 DATA_BASE_PATH = "/Users/chris/Documents/Research/data/2nd-order transaction network of phishing nodes/"
 
@@ -119,13 +121,12 @@ def create_graph(dataset, root):
 # create_graph('Phishing', '0x0a9f58ee19a7131ed031ea66a032c05c7efe965a')
 
 # Create list of subgraphs
-first_order_files = glob.glob(DATA_BASE_PATH + 'Non-Phishing/Non-Phishing first-order nodes/*')
+first_order_files = glob.glob(DATA_BASE_PATH + 'Phishing/Phishing first-order nodes/*')
 graph_l = []
-for f in first_order_files:
+for f in tqdm(first_order_files, desc="Loading..."):
     root = f.split('/')[-1].split('.')[0]
-    G = create_graph('Non-Phishing', root)
+    G = create_graph('Phishing', root)
     graph_l.append(nx.convert_node_labels_to_integers(G, first_label=0, ordering='default'))
-    print('HEREEEE: ', type(G))
 
 print(len(graph_l))
 
