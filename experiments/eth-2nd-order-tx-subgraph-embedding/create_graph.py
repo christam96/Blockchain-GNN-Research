@@ -130,7 +130,5 @@ for f in tqdm(first_order_files, desc="Loading..."):
 
 print(len(graph_l))
 
-model = Graph2Vec()
-fit = model.fit(graph_l)
-embedding = model.get_embedding()
-print(embedding.shape)
+with open('p-subgraphs.pickle', 'wb') as fh:
+    pickle.dump(graph_l, fh)
