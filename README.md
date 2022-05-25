@@ -14,7 +14,7 @@ A personal collection of research papers focused on the application of Graph Neu
 * [XBlock](http://xblock.pro/#/): A blockchain data platform for academic research
 
 ## Subgraphs <a name="subgraphs"></a>
-* [Phishing Detection on Ethereum via Learning Representation of Transaction Subgraphs](https://github.com/christam96/Blockchain-GNN-Research/blob/main/papers/Phishing%20Detection%20on%20Ethereum%20via%20Learning%20Representation%20of%20Transaction%20Subgraphs%20-%20Nov%202020.pdf), (2020) by *Yuan, Yuan and Wu*
+* [Phishing Detection on Ethereum via Learning Representation of Transaction Subgraphs](https://github.com/christam96/Blockchain-GNN-Research/blob/main/papers/Improved%20graph2vec%20(Nov%202021).pdf), (2020) by *Yuan, Yuan and Wu*
 ```
 Improved Graph2Vec: Integrating Ether flow information into transaction subgraphs.
 
@@ -23,7 +23,7 @@ Keywords (personal): 1st-order subgraph · 2nd-order subgraph · Graph2Vec · li
 
 Springer: https://link.springer.com/chapter/10.1007/978-981-15-9213-3_14
 ```
-* [Identity Inference on Blockchain using Graph Neural Network](https://github.com/christam96/Blockchain-GNN-Research/blob/main/papers/Identity%20Inference%20on%20Blockchain%20using%20Graph%20Neural%20Network%20-%20April%202021.pdf), (2021) by *Shen, Jie, et al.*
+* [Identity Inference on Blockchain using Graph Neural Network](https://github.com/christam96/Blockchain-GNN-Research/blob/main/papers/I%5E2BGNN%20(April%202021).pdf), (2021) by *Shen, Jie, et al.*
 ```
 IIGBNN: Learning transaction subgraph embedding for graph classification.
 
