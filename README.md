@@ -15,6 +15,7 @@ A personal collection of research papers focused on the application of Graph Neu
 * [NetworkX](https://networkx.org/documentation/stable/reference/introduction.html): Network analysis in Python
 * [GNN Intro](https://distill.pub/2021/gnn-intro/): A Gentle Introduction to Graph Neural Networks
 * [XBlock](http://xblock.pro/#/): A blockchain data platform for academic research
+* [Karate Club](https://karateclub.readthedocs.io/en/latest/index.html#): Unsupervised machine learning extension library for NetworkX
 
 
 ## Classics <a name="classics"></a>
