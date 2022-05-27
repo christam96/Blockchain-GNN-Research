@@ -10,9 +10,9 @@ import numpy as np
 unpickle = open('p-embeddings.pickle', 'rb')
 p_embeddings = pickle.load(unpickle)
 
-X = p_embeddings
-print(X.shape)
-y = np.ones(len(X))
+X_y = np.append(p_embeddings, np.ones((len(p_embeddings),1)), axis=1)
+X = X_y[:,:-1]
+y = X_y[:,-1]
 pX_train, pX_test, py_train, py_test = train_test_split(X, y, test_size=0.25, random_state=42)
 
 
@@ -20,8 +20,9 @@ pX_train, pX_test, py_train, py_test = train_test_split(X, y, test_size=0.25, ra
 unpickle = open('np-embeddings.pickle', 'rb')
 np_embeddings = pickle.load(unpickle)
 
-X = np_embeddings
-y = np.zeros(len(X))
+X_y = np.append(np_embeddings, np.zeros((len(np_embeddings),1)), axis=1)
+X = X_y[:,:-1]
+y = X_y[:,-1]
 npX_train, npX_test, npy_train, npy_test = train_test_split(X, y, test_size=0.25, random_state=42)
 
 
