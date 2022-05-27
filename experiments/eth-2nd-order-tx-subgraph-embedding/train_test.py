@@ -1,6 +1,5 @@
-from itertools import count
 import pickle
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.svm import SVC
 import numpy as np
 
@@ -39,11 +38,6 @@ print(y_test.shape)
 
 svm = SVC()
 svm.fit(X_train, y_train)
-preds = svm.predict(X_test).tolist()
-print(preds)
-
-p_preds = preds[:len(py_test)]
-np_preds = preds[len(py_test):]
-
-print('Phishing: correct: ', p_preds.count(1),len(py_test), p_preds.count(1)/len(py_test))
-print('Non-Phishing: correct: ',np_preds.count(0),len(npy_test), np_preds.count(0)/len(npy_test))
+cross_val_score = cross_val_score(svm, X, y, cv=5, scoring='accuracy')
+print(cross_val_score)
+print(np.mean(cross_val_score))
