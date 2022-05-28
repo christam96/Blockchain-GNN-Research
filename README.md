@@ -21,7 +21,7 @@ A personal collection of research papers focused on the application of Graph Neu
 ## Classics <a name="classics"></a>
 * [graph2vec: Learning Distributed Representations of Graphs](https://github.com/christam96/Blockchain-GNN-Research/blob/main/papers/graph2vec%20(July%202017).pdf), (2017) by *Narayanan et. al.*
 ```
-Embedding framework to learn data-driven distributed representations of arbitrary sized graphs.
+graph2vec: Embedding framework to learn data-driven distributed representations of arbitrary sized graphs.
 
 Keywords (paper): Graph Kernels · Deep Learning · Representation Learning
 
