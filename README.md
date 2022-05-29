@@ -74,4 +74,4 @@ arXiv: https://arxiv.org/abs/2104.06559
 
 
 ## Reading List <a name="reading-list"></a>
-* [Phishing Detection on Ethereum via Learning Representation](https://link.springer.com/chapter/10.1007/978-981-15-9213-3_14)
+* [Deep Gaussian Embedding of Graphs: Unsupervised Inductive Learning via Ranking](https://arxiv.org/pdf/1707.03815.pdf)
