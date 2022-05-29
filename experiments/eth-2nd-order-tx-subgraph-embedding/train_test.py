@@ -19,7 +19,7 @@ np_X_y = np.append(np_embeddings, np.zeros((len(np_embeddings),1)), axis=1)
 X = np.concatenate((p_X_y[:,:-1], np_X_y[:,:-1]))
 y = np.concatenate((p_X_y[:,-1], np_X_y[:,-1]))
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.99)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, shuffle=True, random_state=1)
 
 print(X_train.shape)
 print(y_train.shape)
