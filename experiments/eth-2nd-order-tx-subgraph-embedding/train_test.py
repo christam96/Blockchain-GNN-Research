@@ -28,6 +28,6 @@ print(y_test.shape)
 
 svm = SVC()
 svm.fit(X_train, y_train)
-cross_val_score = cross_val_score(svm, X, y, cv=5, scoring='accuracy')
+cross_val_score = cross_val_score(svm, X_test, y_test, cv=5, scoring='accuracy')
 print(cross_val_score)
 print(np.mean(cross_val_score))
