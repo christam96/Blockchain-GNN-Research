@@ -38,7 +38,9 @@ Tracking research ideas and opportunities.
 # Similarity of transaction subgraphs
 - Do similar embeddings represent similar transaction patterns? 
 - Similar transactions patterns i.e. same wallets/accounts
-- Obtain 1-hop transaction subgraphs for user
-- Filter criteria (e.g., 30 < number of user txs < 300)
-- Embed transaction subgraph
-- Cluster embeddings using k-means clustering
+
+Framework:
+1. Obtain 1-hop transaction subgraphs for user
+2. Filter criteria (e.g., 30 < number of user txs < 300)
+3. Embed transaction subgraph
+4. Cluster embeddings using k-means clustering
