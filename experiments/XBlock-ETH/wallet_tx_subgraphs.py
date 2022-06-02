@@ -41,47 +41,54 @@ print('# distinct wallets: ', len(wallets))
 print('-----------------------------')
 
 
-# Outbound txs from root
-from_root = external_df[external_df['from']==root]
-root_to_wallet = from_root[from_root['toIsContract']==0]
-root_to_contract = from_root[from_root['toIsContract']==1]
-print('OUTBOUND TRANSACTIONS: ')
-print('Root to wallet: ', root_to_wallet.shape)
-print('Root to contract: ', root_to_contract.shape)
+subgraphs = []
+for root in wallets:
 
-# Inbound txs to root
-wallet_to_root = external_df[external_df['to']==root]
-contract_to_root = internal_df[internal_df['to']==root]
-print('INTERNAL TRANSACTIONS: ')
-print('Wallet to root: ',wallet_to_root.shape)
-print('Contract to root: ', contract_to_root.shape)
+    # Outbound txs from root
+    from_root = external_df[external_df['from']==root]
+    root_to_wallet = from_root[from_root['toIsContract']==0]
+    root_to_contract = from_root[from_root['toIsContract']==1]
+    print('OUTBOUND TRANSACTIONS: ')
+    print('Root to wallet: ', root_to_wallet.shape)
+    print('Root to contract: ', root_to_contract.shape)
 
-
-print('-----------------------------')
-
-
-# Outbound graphs
-G_r2w = nx.from_pandas_edgelist(root_to_wallet, source='from', target='to', edge_attr='value', create_using=nx.DiGraph())
-G_r2c = nx.from_pandas_edgelist(root_to_contract, source='from', target='to', edge_attr='value', create_using=nx.DiGraph())
-print('OUTBOUND GRAPHS: ')
-print('Root to wallet: ', G_r2w.nodes)
-print('Root to contract: ', G_r2c.nodes)
-
-# Inbound graphs
-G_w2r = nx.from_pandas_edgelist(wallet_to_root, source='from', target='to', edge_attr='value', create_using=nx.DiGraph())
-G_c2r = nx.from_pandas_edgelist(contract_to_root, source='from', target='to', edge_attr='value', create_using=nx.DiGraph())
-print('INBOUND GRAPHS: ')
-print('Wallet to root: ', G_w2r.nodes)
-print('Contract to root: ', G_c2r.nodes)
+    # Inbound txs to root
+    wallet_to_root = external_df[external_df['to']==root]
+    contract_to_root = internal_df[internal_df['to']==root]
+    print('INTERNAL TRANSACTIONS: ')
+    print('Wallet to root: ',wallet_to_root.shape)
+    print('Contract to root: ', contract_to_root.shape)
 
 
-print('-----------------------------')
+    print('-----------------------------')
 
 
-# Create subgraph
-G = nx.compose_all([G_r2w, G_r2c, G_w2r, G_c2r])
-print('TX SUBGRAPH: ')
-print(G)
-print('Nodes: ', G.nodes)
-print('Edges: ', G.edges)
+    # Outbound graphs
+    G_r2w = nx.from_pandas_edgelist(root_to_wallet, source='from', target='to', edge_attr='value', create_using=nx.DiGraph())
+    G_r2c = nx.from_pandas_edgelist(root_to_contract, source='from', target='to', edge_attr='value', create_using=nx.DiGraph())
+    print('OUTBOUND GRAPHS: ')
+    print('Root to wallet: ', G_r2w.nodes)
+    print('Root to contract: ', G_r2c.nodes)
 
+    # Inbound graphs
+    G_w2r = nx.from_pandas_edgelist(wallet_to_root, source='from', target='to', edge_attr='value', create_using=nx.DiGraph())
+    G_c2r = nx.from_pandas_edgelist(contract_to_root, source='from', target='to', edge_attr='value', create_using=nx.DiGraph())
+    print('INBOUND GRAPHS: ')
+    print('Wallet to root: ', G_w2r.nodes)
+    print('Contract to root: ', G_c2r.nodes)
+
+
+    print('-----------------------------')
+
+
+    # Create subgraph
+    G = nx.compose_all([G_r2w, G_r2c, G_w2r, G_c2r])
+    print('TX SUBGRAPH: ')
+    print(G)
+    print('Nodes: ', G.nodes)
+    print('Edges: ', G.edges)
+
+    # Append G to subgraphs list
+    subgraphs.append(G)
+
+print(len(subgraphs))
