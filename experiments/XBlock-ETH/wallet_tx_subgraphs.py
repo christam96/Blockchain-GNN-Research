@@ -2,6 +2,7 @@ import glob
 import pandas as pd
 import networkx as nx
 from tqdm import tqdm
+import pickle
 
 DATA_BASE_PATH = "/Users/chris/Documents/Research/data/XBlock-ETH"
 NROWS = 100000
@@ -97,3 +98,7 @@ for root in tqdm(wallets, desc="Loading..."):
         # print('NOT ADDING')
 
 print(len(subgraphs))
+
+# Persist subgraphs in file
+with open('XBlock-subgraphs.pickle', 'wb') as fh:
+    pickle.dump(subgraphs, fh)
