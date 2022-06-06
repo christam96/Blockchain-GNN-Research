@@ -7,6 +7,7 @@ name = "pypi"
 pandas = "*"
 networkx = "*"
 tqdm = "*"
+karateclub = "*"
 
 [dev-packages]
 
