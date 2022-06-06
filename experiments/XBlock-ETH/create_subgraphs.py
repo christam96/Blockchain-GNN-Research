@@ -91,7 +91,7 @@ for root in tqdm(wallets, desc="Loading..."):
     # print('Edges: ', G.edges)
 
     # Append G to subgraphs list based on filtering condition
-    if len(G.nodes) > 10:
+    if len(G.nodes) > 10 and len(G.nodes) < 300:
         subgraphs.append(G)
         # print('ADDING G')
     # else:
