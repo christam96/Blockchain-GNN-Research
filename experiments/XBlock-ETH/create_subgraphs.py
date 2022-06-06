@@ -92,7 +92,7 @@ for root in tqdm(wallets, desc="Loading..."):
 
     # Append G to subgraphs list based on filtering condition
     if len(G.nodes) > 10 and len(G.nodes) < 300:
-        subgraphs.append(G)
+        subgraphs.append(nx.convert_node_labels_to_integers(G, first_label=0, ordering='default'))
         # print('ADDING G')
     # else:
         # print('NOT ADDING')
@@ -100,5 +100,5 @@ for root in tqdm(wallets, desc="Loading..."):
 print(len(subgraphs))
 
 # Persist subgraphs in file
-with open('XBlock-subgraphs.pickle', 'wb') as fh:
+with open('XBlock-subgraphs-{}.pickle'.format('0to999999'), 'wb') as fh:
     pickle.dump(subgraphs, fh)
