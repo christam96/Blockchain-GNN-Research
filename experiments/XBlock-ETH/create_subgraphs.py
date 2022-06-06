@@ -44,6 +44,7 @@ print('-----------------------------')
 
 
 subgraphs = []
+address_book = []
 for root in tqdm(wallets, desc="Loading..."):
 
     # Outbound txs from root
@@ -92,6 +93,7 @@ for root in tqdm(wallets, desc="Loading..."):
 
     # Append G to subgraphs list based on filtering condition
     if len(G.nodes) > 10 and len(G.nodes) < 300:
+        address_book.append(root)
         subgraphs.append(nx.convert_node_labels_to_integers(G, first_label=0, ordering='default'))
         # print('ADDING G')
     # else:
@@ -102,3 +104,7 @@ print(len(subgraphs))
 # Persist subgraphs in file
 with open('XBlock-subgraphs-{}.pickle'.format('0to999999'), 'wb') as fh:
     pickle.dump(subgraphs, fh)
+
+# Persist address book in file
+with open('subgraphs-addressbook-{}.pickle'.format('0to999999'), 'wb') as fh:
+    pickle.dump(address_book, fh)
